@@ -17,10 +17,9 @@ extension UserDefaults {
 
 extension UserDefaults.Key {
   
-  struct User {
+  struct Cart {
     
-    static let posts  = UserDefaults.Key(rawValue: "q")
-    static let token  = UserDefaults.Key(rawValue: "token")
+    static let savedProductID = UserDefaults.Key(rawValue: "q")
     
   }
   
