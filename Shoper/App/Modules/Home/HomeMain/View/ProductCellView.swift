@@ -25,7 +25,7 @@ struct ProductCellView: View {
                       .clipped()
                       .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 6)
                   }
-                  .frame(maxHeight: 180)
+                  .frame(height: 180)
                   .cornerRadius(16)
                   
                 } else {
@@ -56,7 +56,7 @@ struct ProductCellView: View {
                 }
               }
             }
-//            Spacer()
+            Spacer()
 //            
 //          }
 
@@ -95,6 +95,6 @@ struct ProductCellView: View {
       PriceModel(marketId: 0, price: 1650.00),
       PriceModel(marketId: 1, price: 1250.00),
       PriceModel(marketId: 2, price: 1450.00),
-    ]
+    ], count: 1
   ))
 }

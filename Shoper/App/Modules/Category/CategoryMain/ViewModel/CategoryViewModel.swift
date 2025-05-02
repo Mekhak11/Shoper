@@ -6,8 +6,11 @@
 //
 
 import Foundation
-
+import Combine
 final class CategoryViewModel: CategoryViewModeling {
+  
+  @Published var categoriesReal: Categories = Categories(categories: [])
+  
   
   @Published  var categries: [CategoryModel] = [
     CategoryModel(
@@ -57,6 +60,28 @@ final class CategoryViewModel: CategoryViewModeling {
     ),
     
   ]
+  
+  private var getCategoryUseCase: CategoryMainUseCase
+  private var cancellable = Set<AnyCancellable>()
+
+  init(getCategoryUseCase: CategoryMainUseCase) {
+    self.getCategoryUseCase = getCategoryUseCase
+  }
+  
+  func getCategories() {
+    getCategoryUseCase.execute()
+      .sink { [weak self] result in
+        switch result {
+        case .finished:
+            print("Finished")
+        case .failure(let error):
+            print(error)
+        }
+      } receiveValue: { [weak self]  categories in
+        print(categories)
+        self?.categoriesReal = categories
+    }.store(in: &cancellable)
+  }
   
   
 }

@@ -10,7 +10,7 @@ import SwiftUI
 
 struct CartView<M: CartViewModeling>: View {
   
-  @StateObject var viewModel:M = CartViewModel() as! M
+  @StateObject var viewModel:M = CartViewModel(cartUseCase: CartUseCase(cartRepository: CartDfefaultRepository())) as! M
   @State var selectionMode: SelectionType = .lowest
   @State var totalprice = 0.0
   @State var change: Bool = true
@@ -20,7 +20,9 @@ struct CartView<M: CartViewModeling>: View {
         VStack(spacing: 20) {
           ForEach($viewModel.products, id: \.id) { $product in
             CartCellView(selectionMode: $selectionMode, product: $product) {
-              viewModel.products.removeAll(where: {$0.id == product.id})
+              withAnimation {
+                viewModel.products.removeAll(where: {$0.id == product.id})
+              }
             }
 
           }
@@ -32,7 +34,7 @@ struct CartView<M: CartViewModeling>: View {
     }
     .background(Color.blue.opacity(0.04).ignoresSafeArea())
     .onAppear {
-      totalprice = totalMinPrice()
+      viewModel.fetchCartProducts()
     }
   }
 }
@@ -184,11 +186,14 @@ struct CheckBoxView: View {
 
 struct StepperButtonView: View {
   @Binding var count: Int
-  
+  var incrementAction: () -> ()
+  var decrementAction: () -> ()
+  var deleteAction: () -> ()
   var body: some View {
     VStack(spacing: 4) {
       Button(action: {
         count += 1
+        incrementAction()
       }) {
         Image(systemName: "chevron.up")
           .font(.headline)
@@ -203,7 +208,12 @@ struct StepperButtonView: View {
         .padding(.vertical, 4)
       
       Button(action: {
-        if count > 0 { count -= 1 }
+        if count > 1 {
+          count -= 1
+          decrementAction()
+        } else {
+          deleteAction()
+        }
       }) {
         Image(systemName: "chevron.down")
           .font(.headline)

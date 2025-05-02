@@ -7,27 +7,29 @@
 
 import Foundation
 
-enum ShopRoute: TargetType {
+enum HomeRout: TargetType {
   
   case find(payload: String)
+  case home
   
   var baseURL: URL {
-    switch self {
-    case .find:
-      return URL(string: "https://shoper-api.herokuapp.com")!
-    }
+    return URL(string: "http://localhost:8080")!
   }
   
   var path: String {
     switch self {
     case .find:
       return "/api/v1/shops"
+    case .home:
+      return "/api/Home"
     }
   }
   
   var method: String {
     switch self {
     case .find:
+      return "GET"
+    case .home:
       return "GET"
     }
   }
@@ -36,6 +38,10 @@ enum ShopRoute: TargetType {
     switch self {
     case .find:
       return nil
+    case .home:
+      return [
+        "accept": "text/plain"
+      ]
     }
   }
   
@@ -43,7 +49,10 @@ enum ShopRoute: TargetType {
     switch self {
     case .find(payload: let payload):
       return ["q": payload]
+    case .home:
+      return nil
     }
+    
   }
   
 }

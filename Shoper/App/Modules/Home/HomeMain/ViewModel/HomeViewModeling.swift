@@ -9,7 +9,9 @@ import Foundation
 
 protocol HomeViewModeling: ObservableObject {
   
-  var categoryProduct: [HomeModel] { get set }
+//  var categoryProduct: [HomeModel] { get set }
+  var realCategoryProduct: HomeModelReal { get set }
   
+  func getCategoryProduct()
   
 }

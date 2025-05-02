@@ -9,9 +9,8 @@ import SwiftUI
 
 struct CategoryView<M: CategoryViewModeling>: View {
   
-  @StateObject var viewModel:M = CategoryViewModel() as! M
+  @StateObject var viewModel:M = CategoryViewModel(getCategoryUseCase: CategoryMainUseCase(categoryRepository: CategoryDefaultRepository())) as! M
   
-  // Two-column grid layout
   private let columns = [
     GridItem(.flexible(), spacing: 16),
     GridItem(.flexible(), spacing: 16)
@@ -20,14 +19,23 @@ struct CategoryView<M: CategoryViewModeling>: View {
   var body: some View {
     ScrollView {
       LazyVGrid(columns: columns, spacing: 16) {
-        ForEach(viewModel.categries, id: \.id) { category in
-          CategoryCellView(category: category)
+        ForEach(viewModel.categoriesReal.categories, id: \.id) { category in
+          NavigationLink(
+              destination: CategorizedProductsList<CategorizedProductsListViewModel>(categoryId: category.id),
+              label: {
+                  CategoryCellView(category: category)
+              }
+          )
         }
       }
       .padding(.horizontal)
       .padding(.top)
     }
     .background(Color.blue.opacity(0.04).ignoresSafeArea())
+    .onLoad {
+      viewModel.getCategories()
+    }
   }
+    
   
 }

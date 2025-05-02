@@ -9,4 +9,5 @@ import Foundation
 
 protocol CartViewModeling: ObservableObject, Identifiable {
   var products: [ProductModel] { get set }
+  func fetchCartProducts()
 }

@@ -40,15 +40,15 @@ struct CartCellView: View {
             .shadow(color: Color.black.opacity(0.05), radius: 6, x: 0, y: 4)
         }
       }
-        
-        // Product Info
+      
+      // Product Info
       VStack(alignment: .leading) {
         Text(product.productName)
           .font(.caption2)
           .foregroundColor(.black)
           .lineLimit(4)
         
-      ForEach(product.prices.prefix(3), id: \.marketId) { market in
+        ForEach(product.prices.prefix(3), id: \.marketId) { market in
           HStack(spacing: 10) {
             SupermarketLogoView(marketId: market.marketId)
             
@@ -57,12 +57,22 @@ struct CartCellView: View {
               .foregroundColor(market.price == findSelectedPrice() ? Color.green : Color.black.opacity(0.8))
           }
         }
+        Spacer()
       }
       Spacer()
       
       VStack {
-        StepperButtonView(count: $product.count)
+        StepperButtonView(count: $product.count) {
+          CartManager.shared.updateQuantity(productId: "\(product.id)", quantity: product.count)
+        } decrementAction: {
+          CartManager.shared.updateQuantity(productId: "\(product.id)", quantity: product.count)
+        } deleteAction: {
+          CartManager.shared.removeFromCart(productId: "\(product.id)")
+          action()
+        }
+
         Button {
+          CartManager.shared.removeFromCart(productId: "\(product.id)")
           action()
         } label: {
           Image(systemName: "trash.fill")
@@ -97,21 +107,24 @@ extension CartCellView {
     }
   }
 }
-//
-//#Preview {
-//  CartCellView(selectionMode: .constant(.lowest), product: .conProductModel(
-//    id: 7,
-//    productName: "Eggplant caviar \"Artfood\" 360g",
-//    imageURL: "https://media.yerevan-city.am/api/Image/Resize/ProductPhoto/1053273.png/250/250/false",
-//    description: "",
-//    subcategoryId: 1,
-//    prices: [
-//      PriceModel(marketId: 0, price: 1650.00),
-//      PriceModel(marketId: 1, price: 1250.00),
-//      PriceModel(marketId: 2, price: 1450.00),
-//    ]
-//  ))
-//}
+
+#Preview {
+  CartCellView(selectionMode: .constant(.lowest), product:
+      .constant(ProductModel(
+        id: 7,
+        productName: "Eggplant caviar \"Artfood\" 360g",
+        imageURL: "https://media.yerevan-city.am/api/Image/Resize/ProductPhoto/1053273.png/250/250/false",
+        description: "",
+        subcategoryId: 1,
+        prices: [
+          PriceModel(marketId: 0, price: 1650.00),
+          PriceModel(marketId: 1, price: 1250.00),
+          PriceModel(marketId: 2, price: 1450.00),
+        ], count: 1
+  ))) {
+    print("Delete")
+  }
+}
 
 enum SelectionType: Equatable {
   case lowest

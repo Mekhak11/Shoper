@@ -17,7 +17,7 @@ struct CategoryCellView: View {
         if let image = phase.image {
           image
             .resizable()
-            .scaledToFill()
+//            .scaledToFill()
             .frame(height: 160)
             .clipped()
         } else {
@@ -53,7 +53,7 @@ struct CategoryCellView: View {
 }
 
 #Preview {
-  CategoryCellView(category:    CategoryModel(
+  CategoryCellView(category:   CategoryModel(
     id: 0,
     categoryName: "Canned Food",
     image: "https://simplyhomecooked.com/wp-content/uploads/2015/04/Eggplant-spread-ikra-7.jpg"
