@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		240D092A2DCA126500DE711E /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 240D09292DCA126500DE711E /* Lottie */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		24ED0A8B2D9A7E5D00D7B6BD /* Shoper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shoper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -36,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				240D092A2DCA126500DE711E /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +83,7 @@
 			);
 			name = Shoper;
 			packageProductDependencies = (
+				240D09292DCA126500DE711E /* Lottie */,
 			);
 			productName = Shoper;
 			productReference = 24ED0A8B2D9A7E5D00D7B6BD /* Shoper.app */;
@@ -108,6 +114,7 @@
 			mainGroup = 24ED0A822D9A7E5D00D7B6BD;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
+				240D09282DCA126500DE711E /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 24ED0A8C2D9A7E5D00D7B6BD /* Products */;
@@ -339,6 +346,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		240D09282DCA126500DE711E /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = exactVersion;
+				version = 4.3.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		240D09292DCA126500DE711E /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 240D09282DCA126500DE711E /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 24ED0A832D9A7E5D00D7B6BD /* Project object */;
 }

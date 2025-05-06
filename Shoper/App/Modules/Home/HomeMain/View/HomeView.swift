@@ -14,20 +14,18 @@ struct HomeView<M: HomeViewModeling>: View {
   var body: some View {
     ScrollView {
       VStack(alignment: .leading, spacing: 30) {
+        AutoSlidingImageSliderView(images: ["shop1","shop3","shop2"])
+          
         ForEach(viewModel.realCategoryProduct.categories.indices, id: \.self) { index in
           let section = viewModel.realCategoryProduct.categories[index]
-          
-          VStack(alignment: .leading, spacing: 10) {
-            // Category Header
-            HStack {
-              Text(section.category.categoryName)
-                .font(.title2.bold())
-                .foregroundColor(.black)
-              Spacer()
-//              Button(action: {
-//                
-//              }) {
-              NavigationLink(
+          if section.products.count > 0 {
+            VStack(alignment: .leading, spacing: 10) {
+              HStack {
+                Text(section.category.categoryName)
+                  .font(.title2.bold())
+                  .foregroundColor(.black)
+                Spacer()
+                NavigationLink(
                   destination:
                     CategorizedProductsList<CategorizedProductsListViewModel>(categoryId: section.category.id) ,
                   label: {
@@ -35,33 +33,31 @@ struct HomeView<M: HomeViewModeling>: View {
                       .font(.subheadline)
                       .foregroundColor(.blue)
                   }
-              )
-
-//              }
-            }
-            .padding(.horizontal)
-            
-            ScrollView(.horizontal, showsIndicators: false) {
-              HStack(spacing: 16) {
-                ForEach(section.products, id: \.id) { product in
-                  NavigationLink(
+                )
+              }
+              .padding(.horizontal)
+              
+              ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 16) {
+                  ForEach(section.products, id: \.id) { product in
+                    NavigationLink(
                       destination:
                         ProductDetailView(product: product) ,
                       label: {
                         ProductCellView(product: product)
-
+                        
                       }
-                  )
+                    )
                     .frame(width: 220)
+                  }
                 }
+                .padding(.horizontal)
+                .padding(.bottom)
               }
-              .padding(.horizontal)
-              .padding(.bottom)
             }
           }
         }
       }
-      //            .padding(.vertical)
     }
     .background(Color.blue.opacity(0.04).ignoresSafeArea())
     .onLoad {

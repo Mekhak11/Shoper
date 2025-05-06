@@ -13,7 +13,7 @@ enum HomeRout: TargetType {
   case home
   
   var baseURL: URL {
-    return URL(string: "http://localhost:8080")!
+    return URL(string: "https://heroic-musical-feline.ngrok-free.app")!
   }
   
   var path: String {

@@ -122,7 +122,7 @@ extension CartCellView {
           PriceModel(marketId: 2, price: 1450.00),
         ], count: 1
   ))) {
-    print("Delete")
+    
   }
 }
 

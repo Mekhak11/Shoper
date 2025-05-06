@@ -1,15 +1,15 @@
 //
-//  CartRoute.swift
+//  AIAssistantRoute.swift
 //  Shoper
 //
-//  Created by Mekhak Ghapantsyan on 5/2/25.
+//  Created by Mekhak Ghapantsyan on 5/6/25.
 //
 
 import Foundation
 
-enum CartRoute: TargetType {
+enum AIAssistantRoute: TargetType {
   
-  case product(id: Int)
+  case reciepe(prompt: String)
   
   var baseURL: URL {
     return URL(string: "https://heroic-musical-feline.ngrok-free.app")!
@@ -17,34 +17,35 @@ enum CartRoute: TargetType {
   
   var path: String {
     switch self {
-    case .product(let id):
-      return "/api/ProductMeta/\(id)"
+    case  .reciepe:
+      return "/api/Recipe/recommend"
     }
   }
   
   var method: String {
     switch self {
-    case .product:
+    case .reciepe:
       return "GET"
     }
   }
   
   var headers: [String : String]? {
     switch self {
-    case .product:
+    case .reciepe:
       return [
-        "accept": "text/plain"
+        "accept": "*/*"
       ]
     }
   }
   
   var parameters: [String : Any]? {
     switch self {
-    case .product:
-      return nil
+    case .reciepe(let prompt):
+      return [
+        "dish" : prompt
+      ]
     }
     
   }
   
 }
-

@@ -30,14 +30,12 @@ final class CategorizedProductsListViewModel: CategorizedProductsListViewModelin
       .sink { [weak self] result in
         switch result {
         case .finished:
-          print("Finished")
           self?.isLoading = false
         case .failure(let error):
           print(error)
         }
       } receiveValue: { [weak self]  products in
         self?.products.productMetas += products.productMetas
-        print(products)
       }
       .store(in: &cancellable)
   }

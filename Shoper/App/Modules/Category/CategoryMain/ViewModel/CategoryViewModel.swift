@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+
 final class CategoryViewModel: CategoryViewModeling {
   
   @Published var categoriesReal: Categories = Categories(categories: [])
@@ -78,7 +79,6 @@ final class CategoryViewModel: CategoryViewModeling {
             print(error)
         }
       } receiveValue: { [weak self]  categories in
-        print(categories)
         self?.categoriesReal = categories
     }.store(in: &cancellable)
   }

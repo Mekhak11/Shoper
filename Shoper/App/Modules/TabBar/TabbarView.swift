@@ -28,7 +28,7 @@ struct TabbarView: View {
       }
       
       NavigationStack {
-        AIAssistantView()
+        AIAssistantView<AIAssistantViewModel>()
           .navigationTitle("AI Assistant")
       }
       .tabItem {

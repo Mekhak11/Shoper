@@ -13,7 +13,7 @@ enum CategoryRoute: TargetType {
   case productMeta(id: Int, page: Int)
 
   var baseURL: URL {
-    return URL(string: "http://localhost:8080")!
+    return URL(string: "https://heroic-musical-feline.ngrok-free.app")!
   }
   
   var path: String {
