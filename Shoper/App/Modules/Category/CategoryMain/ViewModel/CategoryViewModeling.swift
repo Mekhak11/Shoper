@@ -9,7 +9,7 @@ import Foundation
 
 protocol CategoryViewModeling: ObservableObject, Identifiable {
   
-  var categries: [CategoryModel] { get set }
+  var isLoading: Bool { get set }
   var categoriesReal: Categories { get set }
   
   func getCategories()

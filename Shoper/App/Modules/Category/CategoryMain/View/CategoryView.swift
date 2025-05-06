@@ -18,24 +18,33 @@ struct CategoryView<M: CategoryViewModeling>: View {
   
   var body: some View {
     ScrollView {
-      LazyVGrid(columns: columns, spacing: 16) {
-        ForEach(viewModel.categoriesReal.categories, id: \.id) { category in
-          NavigationLink(
+      if viewModel.isLoading {
+        VStack {
+          Spacer()
+          ProgressView()
+            .progressViewStyle(.circular)
+            .tint(.blue)
+          Spacer()
+        }
+      } else {
+        LazyVGrid(columns: columns, spacing: 16) {
+          ForEach(viewModel.categoriesReal.categories, id: \.id) { category in
+            NavigationLink(
               destination: CategorizedProductsList<CategorizedProductsListViewModel>(categoryId: category.id),
               label: {
-                  CategoryCellView(category: category)
+                CategoryCellView(category: category)
               }
-          )
+            )
+          }
         }
+        .padding(.horizontal)
+        .padding(.top)
       }
-      .padding(.horizontal)
-      .padding(.top)
     }
     .background(Color.blue.opacity(0.04).ignoresSafeArea())
     .onLoad {
       viewModel.getCategories()
     }
   }
-    
   
 }

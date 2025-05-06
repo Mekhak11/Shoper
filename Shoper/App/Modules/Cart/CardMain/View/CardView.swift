@@ -16,19 +16,14 @@ struct CartView<M: CartViewModeling>: View {
   @State var change: Bool = true
   var body: some View {
     VStack {
-      ScrollView {
-        VStack(spacing: 20) {
-          ForEach($viewModel.products, id: \.id) { $product in
-            CartCellView(selectionMode: $selectionMode, product: $product) {
-              withAnimation {
-                viewModel.products.removeAll(where: {$0.id == product.id})
-              }
-            }
-
-          }
-        }
-        .padding(.vertical)
+      
+      if  viewModel.products.isEmpty {
+        Spacer()
+        emptyState
+      } else {
+        filledState
       }
+      Spacer()
       Divider()
       lowestView
     }
@@ -40,6 +35,27 @@ struct CartView<M: CartViewModeling>: View {
 }
 
 extension CartView {
+  
+  private var emptyState: some View {
+    LottieView(animationFileName: "cart", loopMode: viewModel.isLoading ? .loop : .playOnce)
+      .scaleEffect(0.2)
+      .frame(height: 100)
+  }
+  
+  private var filledState: some View {
+    ScrollView {
+      VStack(spacing: 20) {
+        ForEach($viewModel.products, id: \.id) { $product in
+          CartCellView(selectionMode: $selectionMode, product: $product) {
+            withAnimation {
+              viewModel.products.removeAll(where: {$0.id == product.id})
+            }
+          }
+        }
+      }
+      .padding(.vertical)
+    }
+  }
   
   private var lowestView: some View {
     HStack {
@@ -63,7 +79,6 @@ extension CartView {
                 .font(.title2)
                 .padding(4)
             }
-            
           }
         }
         HStack {
@@ -84,7 +99,6 @@ extension CartView {
         }
       }
       Spacer()
-      
     }
   }
   
@@ -100,34 +114,34 @@ extension CartView {
   }
   
   func calculateLowestSupermarket() -> SelectionType {
-      var marketTotals: [Int: Double] = [:]
-      
-      for product in viewModel.products {
-          for price in product.prices {
-              marketTotals[price.marketId, default: 0.0] += price.price * Double(product.count)
-          }
+    var marketTotals: [Int: Double] = [:]
+    
+    for product in viewModel.products {
+      for price in product.prices {
+        marketTotals[price.marketId, default: 0.0] += price.price * Double(product.count)
       }
-      
-      if let id = marketTotals.min(by: { $0.value < $1.value })?.key {
-          totalprice = marketTotals[id] ?? 0.0
-          return SelectionType.supermarket(id)
-      } else {
-          return .lowest
-      }
+    }
+    
+    if let id = marketTotals.min(by: { $0.value < $1.value })?.key {
+      totalprice = marketTotals[id] ?? 0.0
+      return SelectionType.supermarket(id)
+    } else {
+      return .lowest
+    }
   }
   
   func calculateTotalForMinSup() -> Double {
     var marketTotals: [Int: Double] = [:]
     
     for product in viewModel.products {
-        for price in product.prices {
-            marketTotals[price.marketId, default: 0.0] += price.price * Double(product.count)
-        }
+      for price in product.prices {
+        marketTotals[price.marketId, default: 0.0] += price.price * Double(product.count)
+      }
     }
     
-
+    
     if let id = marketTotals.min(by: { $0.value < $1.value })?.key {
-        let totalprice = marketTotals[id] ?? 0.0
+      let totalprice = marketTotals[id] ?? 0.0
       if selectionMode != .lowest {
         DispatchQueue.main.async {
           selectionMode = calculateLowestSupermarket()
@@ -144,14 +158,14 @@ extension CartView {
     return totalprice
     
   }
-
+  
   func totalMinPrice() -> Double {
-      viewModel.products.reduce(0) { total, product in
-          if let minPrice = product.prices.min(by: { $0.price < $1.price })?.price {
-              return total + (minPrice * Double(product.count))
-          }
-          return total
+    viewModel.products.reduce(0) { total, product in
+      if let minPrice = product.prices.min(by: { $0.price < $1.price })?.price {
+        return total + (minPrice * Double(product.count))
       }
+      return total
+    }
   }
   
   //  func calidateAllProducts() {

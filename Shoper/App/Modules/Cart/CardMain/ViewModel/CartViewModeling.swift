@@ -8,6 +8,9 @@
 import Foundation
 
 protocol CartViewModeling: ObservableObject, Identifiable {
+  
+  var isLoading: Bool { get set }
   var products: [ProductModel] { get set }
+  
   func fetchCartProducts()
 }

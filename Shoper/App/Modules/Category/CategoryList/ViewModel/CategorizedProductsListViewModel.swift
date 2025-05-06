@@ -30,7 +30,9 @@ final class CategorizedProductsListViewModel: CategorizedProductsListViewModelin
       .sink { [weak self] result in
         switch result {
         case .finished:
-          self?.isLoading = false
+          DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+            self?.isLoading = false
+          }
         case .failure(let error):
           print(error)
         }
