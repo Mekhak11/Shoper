@@ -13,22 +13,7 @@ struct CategoryCellView: View {
   
   var body: some View {
     ZStack(alignment: .center) {
-      AsyncImage(url: URL(string: category.image)) { phase in
-        if let image = phase.image {
-          image
-            .resizable()
-//            .scaledToFill()
-            .frame(height: 160)
-            .clipped()
-        } else {
-          Rectangle()
-            .fill(Color.blue.opacity(0.1))
-            .frame(height: 160)
-            .overlay(
-              ProgressView()
-            )
-        }
-      }
+      NukeImageView(url: URL(string: category.image))
       .cornerRadius(20)
       .shadow(color: Color.black.opacity(0.15), radius: 8, x: 0, y: 6)
       

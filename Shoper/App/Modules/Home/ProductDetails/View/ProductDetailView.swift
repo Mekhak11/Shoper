@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct ProductDetailView: View {
+  
   let product: ProductModel
   
   var body: some View {
@@ -31,28 +32,9 @@ struct ProductDetailView: View {
 extension ProductDetailView {
     
     private var productImage: some View {
-        AsyncImage(url: URL(string: product.imageURL)) { phase in
-            switch phase {
-            case .empty:
-                ProgressView()
-            case .success(let image):
-                image
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 250)
-                    .cornerRadius(16)
-                    .shadow(color: .gray.opacity(0.4), radius: 8, x: 0, y: 4)
-            case .failure:
-                Image(systemName: "photo")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 250)
-                    .foregroundColor(.gray)
-            @unknown default:
-                EmptyView()
-            }
-        }
-        .frame(maxWidth: .infinity)
+      NukeImageView(url: URL(string: product.imageURL))
+        .scaledToFit()
+        .shadow(color: .gray.opacity(0.4), radius: 8, x: 0, y: 4)
     }
     
     private var productTitle: some View {
@@ -116,5 +98,6 @@ extension ProductDetailView {
         .cornerRadius(12)
         .shadow(color: .blue.opacity(0.15), radius: 6, x: 0, y: 3)
     }
+  
 }
 

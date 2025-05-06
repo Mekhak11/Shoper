@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		240D092A2DCA126500DE711E /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 240D09292DCA126500DE711E /* Lottie */; };
+		240D093C2DCA3A9900DE711E /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = 240D093B2DCA3A9900DE711E /* Nuke */; };
+		240D093E2DCA3A9900DE711E /* NukeUI in Frameworks */ = {isa = PBXBuildFile; productRef = 240D093D2DCA3A9900DE711E /* NukeUI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,7 +42,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				240D093E2DCA3A9900DE711E /* NukeUI in Frameworks */,
 				240D092A2DCA126500DE711E /* Lottie in Frameworks */,
+				240D093C2DCA3A9900DE711E /* Nuke in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,6 +88,8 @@
 			name = Shoper;
 			packageProductDependencies = (
 				240D09292DCA126500DE711E /* Lottie */,
+				240D093B2DCA3A9900DE711E /* Nuke */,
+				240D093D2DCA3A9900DE711E /* NukeUI */,
 			);
 			productName = Shoper;
 			productReference = 24ED0A8B2D9A7E5D00D7B6BD /* Shoper.app */;
@@ -115,6 +121,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				240D09282DCA126500DE711E /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				240D093A2DCA3A9900DE711E /* XCRemoteSwiftPackageReference "Nuke" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 24ED0A8C2D9A7E5D00D7B6BD /* Products */;
@@ -356,6 +363,14 @@
 				version = 4.3.0;
 			};
 		};
+		240D093A2DCA3A9900DE711E /* XCRemoteSwiftPackageReference "Nuke" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kean/Nuke.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.8.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -363,6 +378,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 240D09282DCA126500DE711E /* XCRemoteSwiftPackageReference "lottie-ios" */;
 			productName = Lottie;
+		};
+		240D093B2DCA3A9900DE711E /* Nuke */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 240D093A2DCA3A9900DE711E /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = Nuke;
+		};
+		240D093D2DCA3A9900DE711E /* NukeUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 240D093A2DCA3A9900DE711E /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = NukeUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
