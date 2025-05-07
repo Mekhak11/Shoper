@@ -24,7 +24,7 @@ struct ProductCellView: View {
         ForEach(product.prices.prefix(3), id: \.marketId) { market in
           HStack(spacing: 10) {
             SupermarketLogoView(marketId: market.marketId)
-            Text("\(String(format: "%.f", market.price)) AMD")
+            Text("\(String(format: "%.f", market.price)) \u{058F}")
               .font(.subheadline)
               .foregroundColor(Color.black.opacity(0.8))
           }

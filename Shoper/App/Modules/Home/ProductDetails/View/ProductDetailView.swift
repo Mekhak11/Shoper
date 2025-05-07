@@ -19,7 +19,7 @@ struct ProductDetailView: View {
         productTitle
         productDescription
         priceList
-        quantitySelector
+        addbuton
       }
       .padding()
     }
@@ -33,6 +33,7 @@ extension ProductDetailView {
     
     private var productImage: some View {
       NukeImageView(url: URL(string: product.imageURL))
+        .frame(height: 300)
         .scaledToFit()
         .shadow(color: .gray.opacity(0.4), radius: 8, x: 0, y: 4)
     }
@@ -82,22 +83,36 @@ extension ProductDetailView {
         .cornerRadius(12)
         .shadow(color: .blue.opacity(0.15), radius: 8, x: 0, y: 4)
     }
-    
-    private var quantitySelector: some View {
-        HStack {
-            Text("Quantity:")
-                .font(.headline)
-            Spacer()
-            Stepper(value: .constant(product.count), in: 1...100) {
-                Text("\(product.count)")
-            }
-            .labelsHidden()
-        }
-        .padding()
-        .background(Color.white)
-        .cornerRadius(12)
-        .shadow(color: .blue.opacity(0.15), radius: 6, x: 0, y: 3)
+  
+    private var addbuton: some View {
+      Button {
+        CartManager.shared.addToCart(productId: "\(product.id)")
+      } label: {
+        Text("Add To Cart")
+          .foregroundStyle(Color.white)
+          .padding()
+          .frame(maxWidth: .infinity)
+          .background(Color.blue)
+          .cornerRadius(12)
+          .shadow(color: .blue.opacity(0.15), radius: 6, x: 0, y: 3)
+      }
     }
+  
+//  private var quantitySelector: some View {
+//    HStack {
+//        Text("Quantity:")
+//            .font(.headline)
+//        Spacer()
+//        Stepper(value: .constant(product.count), in: 1...100) {
+//            Text("\(product.count)")
+//        }
+//        .labelsHidden()
+//    }
+//    .padding()
+//    .background(Color.white)
+//    .cornerRadius(12)
+//    .shadow(color: .blue.opacity(0.15), radius: 6, x: 0, y: 3)
+//  }
   
 }
 

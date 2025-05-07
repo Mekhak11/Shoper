@@ -17,6 +17,9 @@ struct HomeView<M: HomeViewModeling>: View {
       .onLoad {
         viewModel.getCategoryProduct()
       }
+      .refreshable {
+        viewModel.getCategoryProduct()
+      }
   }
 }
 
@@ -37,6 +40,8 @@ extension HomeView {
   }
   
   private var categoryProducts: some View {
+    VStack {
+      slider
     ForEach(viewModel.realCategoryProduct.categories.indices, id: \.self) { index in
       let section = viewModel.realCategoryProduct.categories[index]
       if section.products.count > 0 {
@@ -78,6 +83,7 @@ extension HomeView {
         }
       }
     }
+  }
   }
   
   private var slider: some View {

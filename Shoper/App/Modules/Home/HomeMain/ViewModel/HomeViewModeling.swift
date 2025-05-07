@@ -10,6 +10,7 @@ import Foundation
 protocol HomeViewModeling: ObservableObject {
   
   var isLoading: Bool { get set }
+  var error: NetworkError? { get set }
   var realCategoryProduct: HomeModelReal { get set }
   
   func getCategoryProduct()

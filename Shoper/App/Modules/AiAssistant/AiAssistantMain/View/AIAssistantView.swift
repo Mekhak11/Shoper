@@ -32,24 +32,18 @@ struct AIAssistantView<M: AIAssistantViewModeling>: View {
               .id(message.id)
             }
             if viewModel.isLoading {
-              HStack {
-                LottieView(animationFileName: "cooking", loopMode: .loop)
-                  .scaleEffect(0.06)
-                  .frame(width: 60, height: 60)
+              HStack(spacing: 8) {
+                LottieView(animationFileName: "cooki", loopMode: .loop)
+                  .scaleEffect(0.05)
+                  .frame(width: 50, height: 50)
                   .clipped()
                   .scaledToFill()
-                LottieView(animationFileName: "cooking", loopMode: .loop)
-                  .scaleEffect(0.06)
-                  .frame(width: 60, height: 60)
-                  .clipped()
-                  .scaledToFill()
-                LottieView(animationFileName: "cooking", loopMode: .loop)
-                  .scaleEffect(0.06)
-                  .frame(width: 60, height: 60)
-                  .clipped()
-                  .scaledToFill()
+                
+                CookingPlaceholderView()
+                
                 Spacer()
               }
+              .padding()
             }
           }
           .padding(.vertical)
@@ -118,3 +112,31 @@ struct ChatBubble: View {
     }
   }
 }
+
+import SwiftUI
+
+struct CookingPlaceholderView: View {
+    @State private var isAnimating = false
+
+    var body: some View {
+        Text("Cooking...")
+        .font(.title)
+            .fontWeight(.semibold)
+            .italic()
+            .foregroundStyle(.blue)
+            .opacity(isAnimating ? 0.2 : 1.0)
+            .animation(
+                .easeInOut(duration: 1.0)
+                .repeatForever(autoreverses: true),
+                value: isAnimating
+            )
+            .onAppear {
+                isAnimating = true
+            }
+    }
+}
+
+#Preview {
+    CookingPlaceholderView()
+}
+

@@ -11,6 +11,7 @@ enum CategoryRoute: TargetType {
   
   case categories
   case productMeta(id: Int, page: Int)
+  case search(name: String, categoryID: Int?, page: Int)
 
   var baseURL: URL {
     return URL(string: "https://heroic-musical-feline.ngrok-free.app")!
@@ -22,6 +23,8 @@ enum CategoryRoute: TargetType {
       return "/api/CategoryMeta"
     case .productMeta(let id, _):
       return "/api/ProductMeta/category/\(id)"
+    case .search:
+      return "/api/ProductMeta/search"
     }
   }
   
@@ -30,6 +33,8 @@ enum CategoryRoute: TargetType {
     case .categories:
       return "GET"
     case .productMeta:
+      return "GET"
+    case .search:
       return "GET"
     }
  
@@ -48,6 +53,15 @@ enum CategoryRoute: TargetType {
         "pageNumber": page,
         "pageSize": 10
       ]
+    case .search(let name, let categoryID, let page):
+      var parms: [String : Any] = [
+        "search" : name,
+        "pageNumber" : page
+      ]
+      if let categoryID = categoryID {
+        parms["categoryId"] = categoryID
+      }
+      return parms
     }
   }
   

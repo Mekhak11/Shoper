@@ -108,7 +108,7 @@ extension CartView {
         Text("Total Price")
         Image(systemName: "cart.fill")
       }
-      Text("\(String(format: "%.f", selectionMode == .lowest ? totalMinPrice() : calculateTotalForMinSup() )) AMD")
+      Text("\(String(format: "%.f", selectionMode == .lowest ? totalMinPrice() : calculateTotalForMinSup() )) \u{058F}")
         .font(.headline)
     }
   }

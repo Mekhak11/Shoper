@@ -11,7 +11,10 @@ protocol CategorizedProductsListViewModeling: ObservableObject {
  
   var products: ProductsMetaModel { get set }
   var isLoading: Bool { get set }
+  var searchedProducts: [ProductModel] { get set }
   
+  func searchProducts(for query: String, by categoryId: Int)
   func getProducts(for categoryId: Int)
+  func resetSearchPageNumber()
   
 }
